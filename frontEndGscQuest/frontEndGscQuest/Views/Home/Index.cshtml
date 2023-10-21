@@ -7,12 +7,15 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Index</title>
-    </head>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap-grid.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
     
     <body>
+        <script src="~/Scripts/bootstrap.bundle.js"></script>
         <h1>Employee List</h1>
         <table>
             <tr>
@@ -22,29 +25,40 @@
                 <th>Username</th>
                 <th>Password</th>
                 <th>Account Status</th>
-             </tr>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th><button type="button"  class="material-symbols-outlined">person_add</button></th>
+
+
+            </tr>
         @foreach (modEmployeeList item in Model.EmployeeList)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.imp_id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.imp_lastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.imp_firstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.imp_username)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.imp_password)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.imp_account_status)
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    <a href="@Url.Action("EmployeeDetails", "Home", new { emp_id = Html.DisplayFor(modeItem => item.imp_id) })" target="_blank"> @Html.DisplayFor(modelItem => item.imp_id)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.imp_lastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.imp_firstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.imp_username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.imp_password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.imp_account_status)
+                </td>
+                <td>
+                    <button type="button" class="material-symbols-outlined">edit_note</button>
+                </td>
+                <td>
+                    <button type="button" class="material-symbols-outlined">delete_forever</button>
+                </td>
+            </tr>
 
             }
 

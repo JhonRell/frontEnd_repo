@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Configuration;
 
 
+
 namespace BackEndGscQuest.Controllers
 {
     public class HomeController : Controller
@@ -16,7 +17,7 @@ namespace BackEndGscQuest.Controllers
         public ActionResult Index()
         {
             HomeModel mymodel = new HomeModel();
-            mymodel.EmployeeLists = EmployeeList();
+            mymodel.EmployeeList = EmployeeList();
             return View("Index", mymodel);
         }
 

@@ -1,0 +1,28 @@
+﻿@using frontEndGscQuest.Models
+@model HomeModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EmployeeDetails</title>
+</head>
+<body>
+    <h1>Employee Details</h1>
+    @foreach (modEmployeeList item in Model.EmployeeList)
+    {
+        <p>@Html.DisplayFor(modelItem => item.imp_id)</p>
+        <p>@Html.DisplayFor(modelItem => item.imp_lastName)</p>
+        <p>@Html.DisplayFor(modelItem => item.imp_firstName)</p>
+        <p>@Html.DisplayFor(modelItem => item.imp_username)</p>
+        <p>@Html.DisplayFor(modelItem => item.imp_password)</p>
+        <p>@Html.DisplayFor(modelItem => item.imp_account_status)</p>
+
+
+        }
+</body>
+</html>
