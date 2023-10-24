@@ -6,89 +6,89 @@ using System.Web.Mvc;
 using frontEndGscQuest.Models;
 using System.Net.Http;
 using System.Configuration;
-using Newtonsoft.Json; //JSON
-using System.Net; //WebRequest & WebResponse
-using System.Text; //Encoding
-using System.IO; //Stream
+//using Newtonsoft.Json; //JSON
+//using System.Net; //WebRequest & WebResponse
+//using System.Text; //Encoding
+//using System.IO; //Stream
 
 namespace BackEndGscQuest.Controllers
 {
     public class HomeController : Controller
     {
-        //add Employee
+        ////add Employee
         
-        public ActionResult AddEmployee()
-        {
-            return View();
-        }
+        //public ActionResult AddEmployee()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult AddEmployee(modEmployeeList p)
-        {
-            Dictionary<string, object> dictprof = JsonConvert.DeserializeObject<Dictionary<string, object>>(User.Identity.Name);
-            try
-            {
-                string msg;
-                try
-                {
-                    WebRequest req;
-                    WebResponse res;
-                    string postData = "imp_id=" + p.imp_id
-                    + "&firstName=" + p.imp_firstName
-                    + "&lastName=" + p.imp_lastName
-                    + "&username=" + p.imp_username
-                    + "&password=" + p.imp_password;
-                    req = WebRequest.Create(ConfigurationManager.AppSettings["API_Path"] + "api/employee/add?" + postData);
-                    Byte[] data = Encoding.UTF8.GetBytes(postData);
+        //[HttpPost]
+        //public ActionResult AddEmployee(modEmployeeList p)
+        //{
+        //    Dictionary<string, object> dictprof = JsonConvert.DeserializeObject<Dictionary<string, object>>(User.Identity.Name);
+        //    try
+        //    {
+        //        string msg;
+        //        try
+        //        {
+        //            WebRequest req;
+        //            WebResponse res;
+        //            string postData = "imp_id=" + p.imp_id
+        //            + "&firstName=" + p.imp_firstName
+        //            + "&lastName=" + p.imp_lastName
+        //            + "&username=" + p.imp_username
+        //            + "&password=" + p.imp_password;
+        //            req = WebRequest.Create(ConfigurationManager.AppSettings["API_Path"] + "api/employee/add?" + postData);
+        //            Byte[] data = Encoding.UTF8.GetBytes(postData);
 
-                    req.Method = "POST";
-                    req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+        //            req.Method = "POST";
+        //            req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
 
-                    req.ContentLength = data.Length;
-                    Stream stream = req.GetRequestStream();
-                    stream.Write(data, 0, data.Length);
-                    stream.Close();
+        //            req.ContentLength = data.Length;
+        //            Stream stream = req.GetRequestStream();
+        //            stream.Write(data, 0, data.Length);
+        //            stream.Close();
 
-                    using (res = req.GetResponse())
-                    using (var reader = new StreamReader(res.GetResponseStream()))
-                    {
-                        msg = reader.ReadToEnd();
+        //            using (res = req.GetResponse())
+        //            using (var reader = new StreamReader(res.GetResponseStream()))
+        //            {
+        //                msg = reader.ReadToEnd();
 
-                        int comVal = msg.CompareTo("Successfully Saved");
-                        if (comVal == 0)
+        //                int comVal = msg.CompareTo("Successfully Saved");
+        //                if (comVal == 0)
 
-                        {
+        //                {
 
-                            return Content("Successfully Saved", "text/plain", Encoding.UTF8);
-                        }
-                        else
-                        {
+        //                    return Content("Successfully Saved", "text/plain", Encoding.UTF8);
+        //                }
+        //                else
+        //                {
 
-                            return Content(msg, "text/plain", Encoding.UTF8);
-                        }
-                    }
-                }
-                catch (WebException ex)
-                {
-                    HttpWebResponse res = (HttpWebResponse)ex.Response;
-                    Stream receiveStream = res.GetResponseStream();
-                    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+        //                    return Content(msg, "text/plain", Encoding.UTF8);
+        //                }
+        //            }
+        //        }
+        //        catch (WebException ex)
+        //        {
+        //            HttpWebResponse res = (HttpWebResponse)ex.Response;
+        //            Stream receiveStream = res.GetResponseStream();
+        //            using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
 
-                    {
-                        return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
-                    }
-                }
-            }
-            catch (WebException ex)
-            {
-                HttpWebResponse res = (HttpWebResponse)ex.Response;
-                Stream receiveStream = res.GetResponseStream();
-                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
-                {
-                    return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
-                }
-            }
-        }
+        //            {
+        //                return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
+        //            }
+        //        }
+        //    }
+        //    catch (WebException ex)
+        //    {
+        //        HttpWebResponse res = (HttpWebResponse)ex.Response;
+        //        Stream receiveStream = res.GetResponseStream();
+        //        using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+        //        {
+        //            return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
+        //        }
+        //    }
+        //}
 
         //employee Details
         public ActionResult EmployeeDetails()

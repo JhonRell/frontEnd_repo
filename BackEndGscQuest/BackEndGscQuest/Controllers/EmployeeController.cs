@@ -15,12 +15,12 @@ namespace WebApplication1.Controllers
 {
     public class EmployeeController : ApiController
     {
-        
+
         private HttpResponseMessage response;
 
-        //add Employee post
+        //Add Employee
         [Route("api/employee/add", Name = "Post_Employee_Add")]
-        public HttpResponseMessage Post_Employee_Add(string imp_id, string firstName, string lastName,string username, string password)
+        public HttpResponseMessage Post_Employee_Add(string imp_id, string firstName, string lastName, string username, string password)
         {
             using (MySqlConnection SQLCON = new MySqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString))
             {
@@ -31,39 +31,47 @@ namespace WebApplication1.Controllers
                     {
 
                         SQLCON.Open();
+
                         MySqlCommand sqlComm = new MySqlCommand();
+
                         sqlComm.Connection = SQLCON;
+
                         sqlComm.CommandText = "INSERT INTO `gscquest`.`employee`(`imp_id`, `imp_firstName`, `imp_lastName`, `imp_username`, `imp_password`, `imp_account_status`) VALUES (@imp_id, @imp_firstName, @imp_lastName, @imp_username, @imp_password, 'active')";
+
                         sqlComm.Parameters.Add(new MySqlParameter("@imp_id", imp_id));
                         sqlComm.Parameters.Add(new MySqlParameter("@imp_firstName", firstName));
                         sqlComm.Parameters.Add(new MySqlParameter("@imp_lastName", lastName));
                         sqlComm.Parameters.Add(new MySqlParameter("@imp_username", username));
                         sqlComm.Parameters.Add(new MySqlParameter("@imp_password", password));
-
                         sqlComm.ExecuteNonQuery(); //EXECUTE MYSQL QUEUE STRING
-
                         response = Request.CreateResponse(HttpStatusCode.OK);
                         response.Content = new StringContent("Successfully Saved");
+
                         return response;
                     }
                     else
                     {
 
                         response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+
                         response.Content = new StringContent("Unable to connect to the database server", Encoding.UTF8);
+
                         return response;
                     }
                 }
                 catch (Exception ex)
                 {
                     response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+
                     response.Content = new StringContent("There is an error in performing this action: " + ex.ToString(), Encoding.Unicode);
+
                     return response;
                 }
                 finally //ALWAYS CLOSE AND DISPOSE THE CONNECTION AFTER USING
                 {
                     SQLCON.Close();
                     SQLCON.Dispose();
+
                 }
             }
         }
