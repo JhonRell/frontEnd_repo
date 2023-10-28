@@ -1,4 +1,4 @@
-﻿@*@using frontEndGscQuest.Models
+﻿@using frontEndGscQuest.Models
 @model HomeModel
 @{
     Layout = null;
@@ -41,12 +41,12 @@
                     <label for="txtEmployeeID">Employee ID</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="txtEmployeeLastName" placeholder="Employee Last Name">
-                    <label for="txtEmployeeLastName">Employee Last Name</label>
-                </div>
-                <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="txtEmployeeFirstName" placeholder="Employee First Name">
                     <label for="txtEmployeeFirstName">Employee First Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="txtEmployeeLastName" placeholder="Employee Last Name">
+                    <label for="txtEmployeeLastName">Employee Last Name</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="txtUsername" placeholder="Username">
@@ -70,21 +70,20 @@
                 document.getElementById("lblMessage").innerHTML = 'Please supply employee ID.';
             }
             else {
-                if ($('#txtEmployeeLastName').val() == '') {
+                if ($('#txtEmployeeFirstName').val() == '') {
                     $('#exampleModal').modal('show');
-                    document.getElementById("lblMessage").innerHTML = 'Please supply employee last name.';
+                    document.getElementById("lblMessage").innerHTML = 'Please supply employee first name.';
                 }
                 else {
-                    if ($('#txtEmployeeFirstName').val() == '') {
+                    if ($('#txtEmployeeLastName').val() == '') {
                         $('#exampleModal').modal('show');
-                        document.getElementById("lblMessage").innerHTML = 'Please supply employee first name.';
+                        document.getElementById("lblMessage").innerHTML = 'Please supply employee last name.';
                     }
                     else {
-
-                        if ($('#txtUsername').val() == '') {
+                         if ($('#txtUsername').val() == '') {
                             $('#exampleModal').modal('show');
                             document.getElementById("lblMessage").innerHTML = 'Please supply employee username.';
-                        }
+                          }
                         else {
 
                             if ($('#txtPassword').val() == '') {
@@ -97,9 +96,8 @@
                                     url: '@Url.Action("AddEmployee", "Home")',
                                     data: {
                                         imp_id: $('#txtEmployeeID').val(),
-                                        imp_last_name: $('#txtEmployeeLastName').val(),
-                                        imp_first_name: $('#txtEmployeeFirstName').val(),
-
+                                        imp_firstName: $('#txtEmployeeFirstName').val(),
+                                        imp_lastName: $('#txtEmployeeLastName').val(),
                                         imp_username: $('#txtUsername').val(),
                                         imp_password: $('#txtPassword').val()
                                     },
@@ -142,4 +140,4 @@
         });
     </script>
 </body>
-</html>*@
+</html>

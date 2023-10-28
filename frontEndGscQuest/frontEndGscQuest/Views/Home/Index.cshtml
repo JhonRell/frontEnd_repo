@@ -27,7 +27,7 @@
                 <th>Account Status</th>
                 <th>Edit</th>
                 <th>Delete</th>
-                <th><button type="button"  class="material-symbols-outlined">person_add</button></th>
+                <th><a href="@Url.Action("AddEmployee", "Home")" target="_blank" class="material-symbols-outlined">person_add</a></th>
 
 
             </tr>
@@ -35,7 +35,7 @@
             {
             <tr>
                 <td>
-                    <a href="@Url.Action("EmployeeDetails", "Home", new { emp_id = Html.DisplayFor(modeItem => item.imp_id) })" target="_blank"> @Html.DisplayFor(modelItem => item.imp_id)</a>
+                    <a href="@Url.Action("EmployeeDetails", "Home", new { imp_id = Html.DisplayFor(modeItem => item.imp_id) })" target="_blank"> @Html.DisplayFor(modelItem => item.imp_id)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.imp_lastName)
