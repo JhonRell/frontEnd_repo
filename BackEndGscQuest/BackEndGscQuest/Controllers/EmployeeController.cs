@@ -15,10 +15,63 @@ namespace WebApplication1.Controllers
 {
     public class EmployeeController : ApiController
     {
+        //
+        //employee details for Edit
+        [HttpGet]
+        [Route("api/employee/editDetails", Name = "Get_Employee_EditDetails")]
+        public IHttpActionResult Get_Employee_EditDetails(string imp_id)
+        {
+            List<modEmployeeList> stats = new List<modEmployeeList>();
+            using (MySqlConnection sqlConn = new MySqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString))
+            {
+                if (sqlConn.State == ConnectionState.Closed)
+                {
+                    try
+                    {
+                        sqlConn.Open();
+                        using (MySqlCommand msqlcom = new MySqlCommand("SELECT *FROM employee WHERE imp_id = @imp_id LIMIT 1", sqlConn))
+                        {
+                            msqlcom.Parameters.Add(new MySqlParameter("@imp_id", imp_id));
+                            using (MySqlDataReader dtReader = msqlcom.ExecuteReader())
+                            {
+                                if (dtReader.HasRows)
+                                {
+                                    while (dtReader.Read())
+                                    {
+                                        modEmployeeList dataObj = new modEmployeeList();
+                                        dataObj.imp_id = dtReader["imp_id"].ToString();
+                                        dataObj.imp_firstName = dtReader["imp_firstName"].ToString();
+                                        dataObj.imp_lastName = dtReader["imp_lastName"].ToString();
+                                        dataObj.imp_username = dtReader["imp_username"].ToString();
+                                        dataObj.imp_password = dtReader["imp_password"].ToString();
+                                        dataObj.imp_account_status = dtReader["imp_account_status"].ToString();
+                                        stats.Add(dataObj);
+                                    }
+                                    return Ok(stats);
+                                }
+                                else
+                                {
+                                    return NotFound();
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return Content(HttpStatusCode.InternalServerError, ex);
+                    }
+                }
+                else
+                {
+                    return InternalServerError();
+                }
+            }
+        }
         //Edit
         //API ROUTE: api/employee/update?emp_id=101-a123&password=newpass
-        [Route("api/employee/update", Name = "Put_Employee_Update_Passoword")]
-        public HttpResponseMessage Put_Employee_Update_Passoword(string emp_id, string password)
+        [HttpPut]
+        [Route("api/employee/update", Name = "Edit_Employee")]
+        public HttpResponseMessage Edit_Employee(string imp_id, string imp_firstName, string imp_lastName, string imp_username, string imp_password)
         {
             using (MySqlConnection SQLCON = new MySqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString))
             {
@@ -32,10 +85,13 @@ namespace WebApplication1.Controllers
 
                         sqlComm.Connection = SQLCON;
 
-                        sqlComm.CommandText = "UPDATE `employee` SET `imp_password` = @imp_password WHERE `imp_id` = @emp_id LIMIT 1";
+                        sqlComm.CommandText = "UPDATE `employee` SET `imp_firstName` = @imp_firstName, `imp_lastName` = @imp_lastName, `imp_username` = @imp_username, `imp_password` = @imp_password WHERE `imp_id` = @imp_id LIMIT 1";
 
-                        sqlComm.Parameters.Add(new MySqlParameter("@emp_id", emp_id));
-                        sqlComm.Parameters.Add(new MySqlParameter("@imp_password", password));
+                        sqlComm.Parameters.Add(new MySqlParameter("@imp_id", imp_id));
+                        sqlComm.Parameters.Add(new MySqlParameter("@imp_firstName", imp_firstName));
+                        sqlComm.Parameters.Add(new MySqlParameter("@imp_lastName", imp_lastName));
+                        sqlComm.Parameters.Add(new MySqlParameter("@imp_username", imp_username));
+                        sqlComm.Parameters.Add(new MySqlParameter("@imp_password", imp_password));
                         sqlComm.ExecuteNonQuery(); //EXECUTE MYSQL QUEUE STRING
                         response = Request.CreateResponse(HttpStatusCode.OK);
                         response.Content = new StringContent("Successfully Updated");
@@ -71,6 +127,7 @@ namespace WebApplication1.Controllers
 
         //Add Employee
         private HttpResponseMessage response;
+        [HttpPost]
         [Route("api/employee/add", Name = "Post_Employee_Add")]
         public HttpResponseMessage Post_Employee_Add(string imp_id, string imp_firstName, string imp_lastName, string imp_username, string imp_password)
         {
@@ -129,6 +186,7 @@ namespace WebApplication1.Controllers
         }
 
         //employee details
+        [HttpGet]
         [Route("api/employee/details", Name = "Get_Employee_Details")]
         public IHttpActionResult Get_Employee_Details(string imp_id)
         {
@@ -179,6 +237,7 @@ namespace WebApplication1.Controllers
             }
         }
         //Employee list
+        [HttpGet]
         [Route("api/employee/list", Name = "Get_Employee_List")]
         public IHttpActionResult Get_Employee_List()
         {

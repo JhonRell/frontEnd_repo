@@ -19,7 +19,7 @@
         <h1>Employee List</h1>
         <table>
             <tr>
-                <th>Employee</th>
+                <th>Employee ID#</th>
                 <th>Last name</th>
                 <th>First name</th>
                 <th>Username</th>
@@ -28,7 +28,6 @@
                 <th>Edit</th>
                 <th>Delete</th>
                 <th><a href="@Url.Action("AddEmployee", "Home")" target="_blank" class="material-symbols-outlined">person_add</a></th>
-
 
             </tr>
         @foreach (modEmployeeList item in Model.EmployeeList)
@@ -53,7 +52,7 @@
                     @Html.DisplayFor(modelItem => item.imp_account_status)
                 </td>
                 <td>
-                    <button type="button" class="material-symbols-outlined">edit_note</button>
+                    <a href="@Url.Action("EditEmployee", "Home")" target="_blank" class="material-symbols-outlined">edit_note</a>
                 </td>
                 <td>
                     <button type="button" class="material-symbols-outlined">delete_forever</button>
