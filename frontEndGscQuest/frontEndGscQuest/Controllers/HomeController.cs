@@ -15,6 +15,151 @@ namespace BackEndGscQuest.Controllers
 {
     public class HomeController : Controller
     {
+
+        //remove Employee
+        public ActionResult EnabledEmployee()
+        {
+            return View();
+        }
+        [HttpPut]
+        public ActionResult EnabledEmployee(modEmployeeList en)
+        {
+            Dictionary<string, object> dictprof = JsonConvert.DeserializeObject<Dictionary<string, object>>(User.Identity.Name);
+            try
+            {
+                string msg;
+                try
+                {
+                    WebRequest req;
+                    WebResponse res;
+                    string postData = "imp_id=" + en.imp_id
+                    + "&imp_account_status=" + en.imp_account_status;
+
+
+                    req = WebRequest.Create(ConfigurationManager.AppSettings["API_Path"] + "api/employee/enabled?" + postData);
+                    Byte[] data = Encoding.UTF8.GetBytes(postData);
+
+                    req.Method = "PUT";
+                    req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+
+                    req.ContentLength = data.Length;
+                    Stream stream = req.GetRequestStream();
+                    stream.Write(data, 0, data.Length);
+                    stream.Close();
+
+                    using (res = req.GetResponse())
+                    using (var reader = new StreamReader(res.GetResponseStream()))
+                    {
+                        msg = reader.ReadToEnd();
+
+                        int comVal = msg.CompareTo("Successfully Saved");
+                        if (comVal == 0)
+
+                        {
+
+                            return Content("Successfully Saved", "text/plain", Encoding.UTF8);
+                        }
+                        else
+                        {
+
+                            return Content(msg, "text/plain", Encoding.UTF8);
+                        }
+                    }
+                }
+                catch (WebException ex)
+                {
+                    HttpWebResponse res = (HttpWebResponse)ex.Response;
+                    Stream receiveStream = res.GetResponseStream();
+                    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+
+                    {
+                        return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                HttpWebResponse res = (HttpWebResponse)ex.Response;
+                Stream receiveStream = res.GetResponseStream();
+                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+                {
+                    return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
+                }
+            }
+        }
+
+        //remove Employee
+        public ActionResult RemoveEmployee()
+        {
+            return View();
+        }
+        [HttpPut]
+        public ActionResult RemoveEmployee(modEmployeeList r)
+        {
+            Dictionary<string, object> dictprof = JsonConvert.DeserializeObject<Dictionary<string, object>>(User.Identity.Name);
+            try
+            {
+                string msg;
+                try
+                {
+                    WebRequest req;
+                    WebResponse res;
+                    string postData = "imp_id=" + r.imp_id
+                    + "&imp_account_status=" + r.imp_account_status;
+
+
+                    req = WebRequest.Create(ConfigurationManager.AppSettings["API_Path"] + "api/employee/remove?" + postData);
+                    Byte[] data = Encoding.UTF8.GetBytes(postData);
+
+                    req.Method = "PUT";
+                    req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+
+                    req.ContentLength = data.Length;
+                    Stream stream = req.GetRequestStream();
+                    stream.Write(data, 0, data.Length);
+                    stream.Close();
+
+                    using (res = req.GetResponse())
+                    using (var reader = new StreamReader(res.GetResponseStream()))
+                    {
+                        msg = reader.ReadToEnd();
+
+                        int comVal = msg.CompareTo("Successfully Saved");
+                        if (comVal == 0)
+
+                        {
+
+                            return Content("Successfully Saved", "text/plain", Encoding.UTF8);
+                        }
+                        else
+                        {
+
+                            return Content(msg, "text/plain", Encoding.UTF8);
+                        }
+                    }
+                }
+                catch (WebException ex)
+                {
+                    HttpWebResponse res = (HttpWebResponse)ex.Response;
+                    Stream receiveStream = res.GetResponseStream();
+                    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+
+                    {
+                        return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                HttpWebResponse res = (HttpWebResponse)ex.Response;
+                Stream receiveStream = res.GetResponseStream();
+                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+                {
+                    return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
+                }
+            }
+        }
+
         //edit Employee
         public ActionResult EditEmployee()
         {

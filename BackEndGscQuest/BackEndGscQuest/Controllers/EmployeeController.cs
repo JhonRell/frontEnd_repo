@@ -15,7 +15,113 @@ namespace WebApplication1.Controllers
 {
     public class EmployeeController : ApiController
     {
-        //
+        //enabled employee
+        //API ROUTE: api/employee/enabled?emp_id=101-a123
+        [HttpPut]
+        [Route("api/employee/enabled", Name = "Recover_Employee")]
+        public HttpResponseMessage Recover_Employee(string imp_id)
+        {
+            using (MySqlConnection SQLCON = new MySqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString))
+            {
+                try
+                {
+                    if (SQLCON.State == ConnectionState.Closed)
+
+                    {
+
+                        SQLCON.Open();
+                        MySqlCommand sqlComm = new MySqlCommand();
+                        sqlComm.Connection = SQLCON;
+
+                        sqlComm.CommandText = "UPDATE `employee` SET `imp_account_status` = 'Active' WHERE `imp_id` = @imp_id LIMIT 1";
+
+                        sqlComm.Parameters.Add(new MySqlParameter("@imp_id", imp_id));
+                        sqlComm.ExecuteNonQuery(); //EXECUTE MYSQL QUEUE STRING
+                        response = Request.CreateResponse(HttpStatusCode.OK);
+                        response.Content = new StringContent("Successfully Enabled");
+
+                        return response;
+                    }
+                    else
+                    {
+
+                        response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+
+                        response.Content = new StringContent("Unable to connect to the database server", Encoding.UTF8);
+
+                        return response;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+
+                    response.Content = new StringContent("There is an error in performing this action: " + ex.ToString(), Encoding.Unicode);
+
+                    return response;
+                }
+                finally //ALWAYS CLOSE AND DISPOSE THE CONNECTION AFTER USING
+                {
+                    SQLCON.Close();
+                    SQLCON.Dispose();
+
+                }
+            }
+        }
+        
+        //delete employee
+        //API ROUTE: api/employee/remove?emp_id=101-a123
+        [HttpPut]
+        [Route("api/employee/remove", Name = "Delete_Employee_Remove")]
+        public HttpResponseMessage Delete_Employee_Remove(string imp_id)
+        {
+            using (MySqlConnection SQLCON = new MySqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString))
+            {
+                try
+                {
+                    if (SQLCON.State == ConnectionState.Closed)
+
+                    {
+
+                        SQLCON.Open();
+                        MySqlCommand sqlComm = new MySqlCommand();
+                        sqlComm.Connection = SQLCON;
+
+                        sqlComm.CommandText = "UPDATE `employee` SET `imp_account_status` = 'Inactive' WHERE `imp_id` = @imp_id LIMIT 1";
+
+                        sqlComm.Parameters.Add(new MySqlParameter("@imp_id", imp_id));
+                        sqlComm.ExecuteNonQuery(); //EXECUTE MYSQL QUEUE STRING
+                        response = Request.CreateResponse(HttpStatusCode.OK);
+                        response.Content = new StringContent("Successfully Removed");
+
+                        return response;
+                    }
+                    else
+                    {
+
+                        response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+
+                        response.Content = new StringContent("Unable to connect to the database server", Encoding.UTF8);
+
+                        return response;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+
+                    response.Content = new StringContent("There is an error in performing this action: " + ex.ToString(), Encoding.Unicode);
+
+                    return response;
+                }
+                finally //ALWAYS CLOSE AND DISPOSE THE CONNECTION AFTER USING
+                {
+                    SQLCON.Close();
+                    SQLCON.Dispose();
+
+                }
+            }
+        }
         //employee details for Edit
         [HttpGet]
         [Route("api/employee/editDetails", Name = "Get_Employee_EditDetails")]
@@ -67,6 +173,7 @@ namespace WebApplication1.Controllers
                 }
             }
         }
+        
         //Edit
         //API ROUTE: api/employee/update?emp_id=101-a123&password=newpass
         [HttpPut]
@@ -236,6 +343,7 @@ namespace WebApplication1.Controllers
                 }
             }
         }
+        
         //Employee list
         [HttpGet]
         [Route("api/employee/list", Name = "Get_Employee_List")]

@@ -243,6 +243,8 @@
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
     <Content Include="Views\Home\EditEmployee.cshtml" />
+    <Content Include="Views\Home\RemoveEmployee.cshtml" />
+    <Content Include="Views\Home\EnabledEmployee.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

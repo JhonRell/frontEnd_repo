@@ -25,9 +25,16 @@
                 <th>Username</th>
                 <th>Password</th>
                 <th>Account Status</th>
-                <th>Edit</th>
-                <th>Delete</th>
-                <th><a href="@Url.Action("AddEmployee", "Home")" target="_blank" class="material-symbols-outlined">person_add</a></th>
+                <th>
+                    <a href="@Url.Action("EditEmployee", "Home")" target="_blank" class="material-symbols-outlined">edit_note</a>
+                </th>
+                <th>
+                    <a href="@Url.Action("EnabledEmployee", "Home")" target="_blank" class="material-symbols-outlined">person</a>
+                    <a href="@Url.Action("RemoveEmployee", "Home")" target="_blank" class="material-symbols-outlined">no_accounts</a>
+                </th>
+                <th>
+                <a href="@Url.Action("AddEmployee", "Home")" target="_blank" class="material-symbols-outlined">person_add</a>
+                </th>
 
             </tr>
         @foreach (modEmployeeList item in Model.EmployeeList)
@@ -37,10 +44,10 @@
                     <a href="@Url.Action("EmployeeDetails", "Home", new { imp_id = Html.DisplayFor(modeItem => item.imp_id) })" target="_blank"> @Html.DisplayFor(modelItem => item.imp_id)</a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.imp_lastName)
+                    @Html.DisplayFor(modelItem => item.imp_firstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.imp_firstName)
+                    @Html.DisplayFor(modelItem => item.imp_lastName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.imp_username)
@@ -51,12 +58,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.imp_account_status)
                 </td>
-                <td>
-                    <a href="@Url.Action("EditEmployee", "Home")" target="_blank" class="material-symbols-outlined">edit_note</a>
-                </td>
-                <td>
-                    <button type="button" class="material-symbols-outlined">delete_forever</button>
-                </td>
+                 
             </tr>
 
             }
