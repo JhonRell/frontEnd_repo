@@ -15,6 +15,58 @@ namespace WebApplication1.Controllers
 {
     public class EmployeeController : ApiController
     {
+        //delete employee
+        [HttpDelete]
+        [Route("api/employee/delete", Name = "delete_Employee")]
+        public HttpResponseMessage delete_Employee(string imp_id)
+        {
+            using (MySqlConnection SQLCON = new MySqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString))
+            {
+                try
+                {
+                    if (SQLCON.State == ConnectionState.Closed)
+
+                    {
+
+                        SQLCON.Open();
+                        MySqlCommand sqlComm = new MySqlCommand();
+                        sqlComm.Connection = SQLCON;
+
+                        sqlComm.CommandText = "DELETE FROM `employee` WHERE `imp_id` = @imp_id LIMIT 1";
+
+                        sqlComm.Parameters.Add(new MySqlParameter("@imp_id", imp_id));
+                        sqlComm.ExecuteNonQuery(); //EXECUTE MYSQL QUEUE STRING
+                        response = Request.CreateResponse(HttpStatusCode.OK);
+                        response.Content = new StringContent("Successfully Deleted");
+
+                        return response;
+                    }
+                    else
+                    {
+
+                        response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+
+                        response.Content = new StringContent("Unable to connect to the database server", Encoding.UTF8);
+
+                        return response;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+
+                    response.Content = new StringContent("There is an error in performing this action: " + ex.ToString(), Encoding.Unicode);
+
+                    return response;
+                }
+                finally //ALWAYS CLOSE AND DISPOSE THE CONNECTION AFTER USING
+                {
+                    SQLCON.Close();
+                    SQLCON.Dispose();
+
+                }
+            }
+        }
         //enabled employee
         //API ROUTE: api/employee/enabled?emp_id=101-a123
         [HttpPut]

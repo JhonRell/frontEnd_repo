@@ -43,10 +43,6 @@
                     <input type="text" class="form-control" id="txtEmployeeID" placeholder="Employee ID">
                     <label for="txtEmployeeID">Employee ID</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="txtAccountStatus" placeholder="AccountStatus">
-                    <label for="txtAccountStatus">Account Status</label>
-                </div>
                 <button type="button" id="post-data" class="btn btn-success" data-action="post-data">Enabled Employee</button>
             </div>
         </div>
@@ -62,22 +58,15 @@
                     {
                         $('#exampleModal').modal('show');
                         document.getElementById("lblMessage").innerHTML = 'Please supply employee ID.';
-                     }
-                else
-                    {
-                    if ($('#txtAccountStatus').val() == '')
-                        {
-                            $('#exampleModal').modal('show');
-                            document.getElementById("lblMessage").innerHTML = 'Please supply employee first name.';
-                        }
+                    }
 
-                else {
+                    else {
 
-                                $.ajax({
+                                $.ajax(
+                                {
                                     url: '@Url.Action("EnabledEmployee", "Home")',
                                     data: {
-                                        imp_id: $('#txtEmployeeID').val(),
-                                        imp_account_: $('#txtAccountStatus').val()
+                                        imp_id: $('#txtEmployeeID').val()
                                     },
 
                                     dataType: 'text',
@@ -87,18 +76,18 @@
 
                                     success: function (data) {
 
-                                        if (data == 'Successfully Saved') {
+                                        if (data == 'Successfully Enabled') {
                                             $('#exampleModal').modal('show');
 
                                             document.getElementById("lblMessage").innerHTML = 'Successfully Enabled.';
                                             $("#post-data").prop("disabled", false);
-                                            $("#post-data").html('Save Employee');
+                                            $("#post-data").html('Enabled Employee');
                                         } else {
                                             $('#exampleModal').modal('show');
                                             document.getElementById("lblMessage").innerHTML = data;
 
                                             $("#post-data").prop("disabled", false);
-                                            $("#post-data").html('Save Employee');
+                                            $("#post-data").html('Enabled Employee');
                                         }
                                     },
 
@@ -112,7 +101,7 @@
 
                      }
                  }
-        });
+        );
     </script>
 </body>
 </html>

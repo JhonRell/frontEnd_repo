@@ -15,6 +15,76 @@ namespace BackEndGscQuest.Controllers
 {
     public class HomeController : Controller
     {
+        //Delete Employee
+        public ActionResult DeleteEmployee()
+        {
+            return View();
+        }
+        [HttpDelete]
+        public ActionResult EnabledEmployee(modEmployeeList d)
+        {
+            Dictionary<string, object> dictprof = JsonConvert.DeserializeObject<Dictionary<string, object>>(User.Identity.Name);
+            try
+            {
+                string msg;
+                try
+                {
+                    WebRequest req;
+                    WebResponse res;
+                    string postData = "imp_id=" + d.imp_id;
+
+
+                    req = WebRequest.Create(ConfigurationManager.AppSettings["API_Path"] + "api/employee/enabled?" + postData);
+                    Byte[] data = Encoding.UTF8.GetBytes(postData);
+
+                    req.Method = "DELETE";
+                    req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+
+                    req.ContentLength = data.Length;
+                    Stream stream = req.GetRequestStream();
+                    stream.Write(data, 0, data.Length);
+                    stream.Close();
+
+                    using (res = req.GetResponse())
+                    using (var reader = new StreamReader(res.GetResponseStream()))
+                    {
+                        msg = reader.ReadToEnd();
+
+                        int comVal = msg.CompareTo("Successfully DELETED");
+                        if (comVal == 0)
+
+                        {
+
+                            return Content("Successfully DELETED", "text/plain", Encoding.UTF8);
+                        }
+                        else
+                        {
+
+                            return Content(msg, "text/plain", Encoding.UTF8);
+                        }
+                    }
+                }
+                catch (WebException ex)
+                {
+                    HttpWebResponse res = (HttpWebResponse)ex.Response;
+                    Stream receiveStream = res.GetResponseStream();
+                    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+
+                    {
+                        return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                HttpWebResponse res = (HttpWebResponse)ex.Response;
+                Stream receiveStream = res.GetResponseStream();
+                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+                {
+                    return Content(readStream.ReadToEnd(), "text/plain", Encoding.UTF8);
+                }
+            }
+        }
 
         //remove Employee
         public ActionResult EnabledEmployee()
@@ -32,8 +102,7 @@ namespace BackEndGscQuest.Controllers
                 {
                     WebRequest req;
                     WebResponse res;
-                    string postData = "imp_id=" + en.imp_id
-                    + "&imp_account_status=" + en.imp_account_status;
+                    string postData = "imp_id=" + en.imp_id;
 
 
                     req = WebRequest.Create(ConfigurationManager.AppSettings["API_Path"] + "api/employee/enabled?" + postData);
@@ -52,12 +121,12 @@ namespace BackEndGscQuest.Controllers
                     {
                         msg = reader.ReadToEnd();
 
-                        int comVal = msg.CompareTo("Successfully Saved");
+                        int comVal = msg.CompareTo("Successfully Enabled");
                         if (comVal == 0)
 
                         {
 
-                            return Content("Successfully Saved", "text/plain", Encoding.UTF8);
+                            return Content("Successfully Enabled", "text/plain", Encoding.UTF8);
                         }
                         else
                         {
@@ -104,8 +173,7 @@ namespace BackEndGscQuest.Controllers
                 {
                     WebRequest req;
                     WebResponse res;
-                    string postData = "imp_id=" + r.imp_id
-                    + "&imp_account_status=" + r.imp_account_status;
+                    string postData = "imp_id=" + r.imp_id;
 
 
                     req = WebRequest.Create(ConfigurationManager.AppSettings["API_Path"] + "api/employee/remove?" + postData);
@@ -124,12 +192,12 @@ namespace BackEndGscQuest.Controllers
                     {
                         msg = reader.ReadToEnd();
 
-                        int comVal = msg.CompareTo("Successfully Saved");
+                        int comVal = msg.CompareTo("Successfully Disabled");
                         if (comVal == 0)
 
                         {
 
-                            return Content("Successfully Saved", "text/plain", Encoding.UTF8);
+                            return Content("Successfully Disabled", "text/plain", Encoding.UTF8);
                         }
                         else
                         {
