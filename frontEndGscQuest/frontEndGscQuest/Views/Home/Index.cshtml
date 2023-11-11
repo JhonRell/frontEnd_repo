@@ -10,14 +10,15 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <link href="~/Content/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 </head>
     
     <body>
         <script src="~/Scripts/bootstrap.bundle.js"></script>
         <h1>Employee List</h1>
-        <table>
+        <table class="table table-dark table-striped">
             <tr>
                 <th>Employee ID#</th>
                 <th>Last name</th>
@@ -27,39 +28,36 @@
                 <th>Account Status</th>
                 <th>
                     <a href="@Url.Action("EditEmployee", "Home")" target="_blank" class="material-symbols-outlined">edit_note</a>
-                </th>
-                <th>
                     <a href="@Url.Action("EnabledEmployee", "Home")" target="_blank" class="material-symbols-outlined">person</a>
                     <a href="@Url.Action("RemoveEmployee", "Home")" target="_blank" class="material-symbols-outlined">no_accounts</a>
-                </th>
-                <th>
-                <a href="@Url.Action("AddEmployee", "Home")" target="_blank" class="material-symbols-outlined">person_add</a>
+                    <a href="@Url.Action("DeleteEmployee", "Home")" target="_blank" class="material-symbols-outlined">delete_forever</a>
+                    <a href="@Url.Action("AddEmployee", "Home")" target="_blank" class="material-symbols-outlined">person_add</a>
                 </th>
 
             </tr>
-        @foreach (modEmployeeList item in Model.EmployeeList)
+                 @foreach (modEmployeeList item in Model.EmployeeList)
             {
-            <tr>
-                <td>
-                    <a href="@Url.Action("EmployeeDetails", "Home", new { imp_id = Html.DisplayFor(modeItem => item.imp_id) })" target="_blank"> @Html.DisplayFor(modelItem => item.imp_id)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.imp_firstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.imp_lastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.imp_username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.imp_password)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.imp_account_status)
-                </td>
+                <tr>
+                    <td>
+                        <a href="@Url.Action("EmployeeDetails", "Home", new { imp_id = Html.DisplayFor(modeItem => item.imp_id) })" target="_blank"> @Html.DisplayFor(modelItem => item.imp_id)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.imp_firstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.imp_lastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.imp_username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.imp_password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.imp_account_status)
+                    </td>
                  
-            </tr>
+                </tr>
 
             }
 
@@ -67,6 +65,4 @@
  
     </body>
      
-
-
 </html>

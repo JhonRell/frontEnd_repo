@@ -121,7 +121,7 @@ namespace WebApplication1.Controllers
             }
         }
         
-        //delete employee
+        //remove employee
         //API ROUTE: api/employee/remove?emp_id=101-a123
         [HttpPut]
         [Route("api/employee/remove", Name = "Delete_Employee_Remove")]
@@ -304,7 +304,7 @@ namespace WebApplication1.Controllers
 
                         sqlComm.Connection = SQLCON;
 
-                        sqlComm.CommandText = "INSERT INTO `gscquest`.`employee`(`imp_id`, `imp_firstName`, `imp_lastName`, `imp_username`, `imp_password`, `imp_account_status`) VALUES (@imp_id, @imp_firstName, @imp_lastName, @imp_username, @imp_password, 'active')";
+                        sqlComm.CommandText = "INSERT INTO `gscquest`.`employee`(`imp_id`, `imp_firstName`, `imp_lastName`, `imp_username`, `imp_password`, `imp_account_status`) VALUES (@imp_id, @imp_firstName, @imp_lastName, @imp_username, @imp_password, 'Active')";
 
                         sqlComm.Parameters.Add(new MySqlParameter("@imp_id", imp_id));
                         sqlComm.Parameters.Add(new MySqlParameter("@imp_firstName", imp_firstName));

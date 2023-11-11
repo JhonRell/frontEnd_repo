@@ -168,6 +168,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="obj\Debug\frontEndGscQuest.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\frontEndGscQuest.dll" />
@@ -183,6 +184,7 @@
     <Content Include="Scripts\jquery-3.7.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +247,9 @@
     <Content Include="Views\Home\EditEmployee.cshtml" />
     <Content Include="Views\Home\RemoveEmployee.cshtml" />
     <Content Include="Views\Home\EnabledEmployee.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\DeleteEmployee.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

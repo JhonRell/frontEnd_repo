@@ -21,7 +21,7 @@ namespace BackEndGscQuest.Controllers
             return View();
         }
         [HttpDelete]
-        public ActionResult EnabledEmployee(modEmployeeList d)
+        public ActionResult DeleteEmployee(modEmployeeList d)
         {
             Dictionary<string, object> dictprof = JsonConvert.DeserializeObject<Dictionary<string, object>>(User.Identity.Name);
             try
@@ -34,7 +34,7 @@ namespace BackEndGscQuest.Controllers
                     string postData = "imp_id=" + d.imp_id;
 
 
-                    req = WebRequest.Create(ConfigurationManager.AppSettings["API_Path"] + "api/employee/enabled?" + postData);
+                    req = WebRequest.Create(ConfigurationManager.AppSettings["API_Path"] + "api/employee/delete?" + postData);
                     Byte[] data = Encoding.UTF8.GetBytes(postData);
 
                     req.Method = "DELETE";
