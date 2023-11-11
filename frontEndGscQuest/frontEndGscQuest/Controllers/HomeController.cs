@@ -86,7 +86,7 @@ namespace BackEndGscQuest.Controllers
             }
         }
 
-        //remove Employee
+        //enable Employee
         public ActionResult EnabledEmployee()
         {
             return View();

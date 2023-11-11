@@ -15,9 +15,15 @@
 
 </head>
     
-    <body>
-        <script src="~/Scripts/bootstrap.bundle.js"></script>
-        <h1>Employee List</h1>
+<body>
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    
+    
+        <div class="card-header card text-center p-1 mb 1 bg-secondary text-white">
+            <h1>Employee List</h1>
+        </div>
+     
+
         <table class="table table-dark table-striped">
             <tr>
                 <th>Employee ID#</th>
@@ -35,7 +41,7 @@
                 </th>
 
             </tr>
-                 @foreach (modEmployeeList item in Model.EmployeeList)
+            @foreach (modEmployeeList item in Model.EmployeeList)
             {
                 <tr>
                     <td>
@@ -56,13 +62,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.imp_account_status)
                     </td>
-                 
+                    <td></td>
                 </tr>
 
             }
 
-         </table>
- 
-    </body>
+        </table>
+
+</body>
      
 </html>
